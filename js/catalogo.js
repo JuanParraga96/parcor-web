@@ -21,6 +21,15 @@ const CONFIG = {
     linkedin: ''
   },
   GARANTIA_COLCHONES: '10 años',
+
+  // Descuento que se muestra en toda la tienda. El precio real de venta es el
+  // que está en este archivo; el "precio de lista" tachado se calcula como
+  // precio ÷ (1 − DESCUENTO_PCT/100), para que la etiqueta "-30%" sea exacta.
+  // Pon 0 para no mostrar descuentos.
+  DESCUENTO_PCT: 30,
+
+  // Barra de anuncio arriba del header. Deja '' para ocultarla.
+  ANUNCIO: '30% de descuento de lanzamiento en toda la tienda. Envío a toda Colombia.',
   FORMAS_PAGO: ['Transferencia bancaria', 'Llave (Bre-B)', 'Tarjeta de crédito o débito', 'Link de pago']
 };
 

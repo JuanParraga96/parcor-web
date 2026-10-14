@@ -36,6 +36,12 @@
   }
   const tienePendiente = (p, k) => (p.pendientes || []).includes(k);
 
+  /* descuento visible: precio de lista = real ÷ (1 − pct) */
+  const DESC = Number(CONFIG.DESCUENTO_PCT) || 0;
+  const lista = x => DESC ? Math.round(x / (1 - DESC / 100) / 100) * 100 : null;
+  const offTag = () => DESC ? `<span class="off">-${DESC}%</span>` : '';
+  const wasHtml = x => DESC ? `<s class="was">${fmt(lista(x))}</s>` : '';
+
   /* ---------------- toast ---------------- */
   let toastT;
   function toast(msg) {
@@ -105,7 +111,9 @@
           <div class="cprice">${fmt(i.precio * i.qty)}</div>
         </div>`).join('');
       const saved = JSON.parse(localStorage.getItem('parcor_cliente') || '{}');
+      const ahorro = DESC ? this.items.reduce((s, i) => s + (lista(i.precio) - i.precio) * i.qty, 0) : 0;
       foot.innerHTML = `
+        ${ahorro ? `<div class="totals-save"><span>Precio de lista</span><s>${fmt(this.total() + ahorro)}</s></div><div class="totals-save"><span>Descuento ${DESC}%</span><b>−${fmt(ahorro)}</b></div>` : ''}
         <div class="totals"><span>Total de referencia</span><b>${fmt(this.total())}</b></div>
         <div class="totals-note">IVA incluido. El envío se confirma por WhatsApp según tu ciudad.</div>
         <div class="field-row">
@@ -155,19 +163,29 @@
 
     $('#footer-cats').innerHTML = CATEGORIAS.map(c => `<li><a href="#/catalogo/${c.id}">${esc(c.nombre)}</a></li>`).join('');
 
-    /* comparador */
-    const rows = PRODUCTOS.filter(isColchon).sort((a, b) => precioDesde(a) - precioDesde(b)).map(p => `
+    /* comparador: dos tablas, extendidos primero */
+    const tabla = (linea, titulo, sub) => {
+      const rows = PRODUCTOS.filter(p => isColchon(p) && p.linea === linea).sort((a, b) => precioDesde(a) - precioDesde(b)).map(p => `
       <tr>
         <td class="name">${esc(p.nombre)}<small>${esc(p.marca)}</small></td>
-        <td><span class="tag ${p.linea === 'enrollado' ? 'tag-roll' : ''}">${p.linea === 'enrollado' ? 'Enrollado' : 'Extendido'}</span></td>
         <td>${alturasDe(p).map(a => a.altura).filter(a => a >= 25).join(' / ')} cm</td>
         <td>${esc(p.nucleo)}</td>
-        <td><span class="firm" title="${esc(p.sensacion)}">${[1, 2, 3, 4, 5].map(n => `<i class="${n <= p.firmeza ? 'on' : ''}"></i>`).join('')}</span></td>
+        <td><span class="firm" title="${esc(p.sensacion)}">${[1, 2, 3, 4, 5].map(n => `<i class="${n <= p.firmeza ? 'on' : ''}"></i>`).join('')}</span> <small style="color:var(--muted)">${esc(p.sensacion)}</small></td>
         <td>${p.aisla ? 'Sí' : 'Parcial'}</td>
-        <td class="price">${fmt(precioDesde(p))}</td>
+        <td class="price">${wasHtml(precioDesde(p))}${fmt(precioDesde(p))}</td>
         <td><a href="#/p/${p.id}">Ver</a></td>
       </tr>`).join('');
-    $('#compare-table').innerHTML = `<thead><tr><th>Colchón</th><th>Entrega</th><th>Altura</th><th>Núcleo</th><th>Firmeza</th><th>Independencia de movimiento</th><th>Desde</th><th></th></tr></thead><tbody>${rows}</tbody>`;
+      return `<thead><tr><th colspan="7" class="group"><span class="tag ${linea === 'enrollado' ? 'tag-roll' : ''}">${titulo}</span> <span class="group-sub">${sub}</span></th></tr>
+        <tr><th>Colchón</th><th>Altura</th><th>Núcleo</th><th>Firmeza</th><th>Independencia de movimiento</th><th>Desde (sencillo)</th><th></th></tr></thead><tbody>${rows}</tbody>`;
+    };
+    $('#compare-table').innerHTML = tabla('extendido', 'Extendidos', 'Casa Di Luna · llegan listos para usar');
+    $('#compare-table-2').innerHTML = tabla('enrollado', 'Enrollados', 'Azame · llegan comprimidos en caja a cualquier ciudad');
+
+    /* anuncio y cinta de confianza */
+    const an = $('#announce'); if (CONFIG.ANUNCIO) { an.textContent = CONFIG.ANUNCIO; an.hidden = false; }
+    const items = ['Envío a toda Colombia con guía de rastreo', `Garantía de ${CONFIG.GARANTIA_COLCHONES} en todos los colchones`, 'Tela antiflama certificada', 'Hecho en Colombia por Azame y Casa Di Luna', 'Una persona real te responde por WhatsApp', DESC ? `${DESC}% de descuento de lanzamiento` : 'Precios con IVA incluido'];
+    const seq = items.map(t => `<span><i class="star" aria-hidden="true"></i>${esc(t)}</span>`).join('');
+    $('#ticker').innerHTML = seq + seq;
 
     /* FAQ pagos */
     $('#faq-pagos').textContent = `Aceptamos ${CONFIG.FORMAS_PAGO.slice(0, -1).join(', ').toLowerCase()} y ${CONFIG.FORMAS_PAGO.slice(-1)[0].toLowerCase()}. Te enviamos los datos por WhatsApp una vez confirmado el pedido.`;
@@ -246,13 +264,13 @@
       const desde = precioDesde(p);
       const meta = isColchon(p) ? `${esc(p.marca)} · ${alturasDe(p).map(a => a.altura).filter(a => a >= 25).join('/')} cm · ${esc(p.sensacion)}` : (p.variantes ? `${p.variantes.length} opciones` : (p.sku || ''));
       return `<a class="pcard" href="#/p/${p.id}">
-        ${badges(p)}
+        ${badges(p)}${desde ? offTag() : ''}
         <div class="pimg">${p.img && p.img[0] ? `<img src="${p.img[0]}" alt="${esc(p.nombre)}" loading="lazy">` : PLACEHOLDER()}</div>
         <div class="pbody">
           <div class="pmeta">${meta}</div>
           <h3>${esc(p.nombre)}</h3>
           <p class="pdesc">${esc(p.desc)}</p>
-          <div class="pprice">${desde ? `<b>${fmt(desde)}</b><small>${isColchon(p) || p.variantes ? 'desde' : 'IVA incluido'}</small>` : `<small>Consultar precio</small>`}</div>
+          <div class="pprice">${desde ? `<span>${wasHtml(desde)}<b>${fmt(desde)}</b></span><small>${isColchon(p) || p.variantes ? 'desde' : 'IVA incluido'}</small>` : `<small>Consultar precio</small>`}</div>
         </div></a>`;
     }).join('');
   }
@@ -302,7 +320,7 @@
 
     const canBuy = precio != null;
     const cta = canBuy ? `
-      <div class="price-box"><div><div class="big">${fmt(precio)}</div><small>IVA incluido · ${esc(variante || 'precio unitario')}</small></div>
+      <div class="price-box"><div>${wasHtml(precio)}<div class="big">${fmt(precio)}${offTag()}</div><small>IVA incluido · ${esc(variante || 'precio unitario')}</small></div>
         <div class="qty"><button data-q="-1" aria-label="Menos">−</button><input id="qty" type="number" min="1" value="${sel.qty}" aria-label="Cantidad"><button data-q="1" aria-label="Más">+</button></div></div>
       <div class="cta-row">
         <button class="btn btn-primary btn-lg" id="add-cart">Agregar al pedido</button>
@@ -334,7 +352,7 @@
           ${col ? `<p style="margin-top:22px;color:var(--muted);font-size:.9rem">${p.linea === 'enrollado' ? 'Llega comprimido al vacío en caja. Al abrirlo recupera su altura en 24 a 48 horas.' : 'Llega extendido, listo para usar el mismo día.'} ${p.dobleCara ? 'Doble cara: puedes voltearlo para que dure más.' : ''}</p>` : ''}
         </div>
       </div>
-      ${related.length ? `<div class="related"><h2>También en ${esc(cat.nombre.toLowerCase())}</h2><div class="product-grid">${related.map(r => `<a class="pcard" href="#/p/${r.id}">${badges(r)}<div class="pimg">${r.img && r.img[0] ? `<img src="${r.img[0]}" alt="" loading="lazy">` : PLACEHOLDER()}</div><div class="pbody"><h3>${esc(r.nombre)}</h3><div class="pprice">${precioDesde(r) ? `<b>${fmt(precioDesde(r))}</b><small>desde</small>` : '<small>Consultar precio</small>'}</div></div></a>`).join('')}</div></div>` : ''}`;
+      ${related.length ? `<div class="related"><h2>También en ${esc(cat.nombre.toLowerCase())}</h2><div class="product-grid">${related.map(r => `<a class="pcard" href="#/p/${r.id}">${badges(r)}<div class="pimg">${r.img && r.img[0] ? `<img src="${r.img[0]}" alt="" loading="lazy">` : PLACEHOLDER()}</div><div class="pbody"><h3>${esc(r.nombre)}</h3><div class="pprice">${precioDesde(r) ? `<span>${wasHtml(precioDesde(r))}<b>${fmt(precioDesde(r))}</b></span><small>desde</small>` : '<small>Consultar precio</small>'}</div></div></a>`).join('')}</div></div>` : ''}`;
 
     /* interacciones */
     $$('[data-opt]', wrap).forEach(b => b.addEventListener('click', () => {
@@ -387,41 +405,60 @@
     },
     score(p) {
       const r = this.r; let s = 0; const why = [];
+      const POS = { lado: 'de lado', espalda: 'boca arriba', abajo: 'boca abajo', mixto: 'cambiando de postura' }[r.posicion] || '';
       let target = { lado: 2.5, espalda: 3.5, abajo: 4.5, mixto: 3 }[r.posicion] || 3;
       target += { nube: -1, equilibrio: 0, firme: 1.2, nose: 0 }[r.sensacion] || 0;
       target = Math.max(1, Math.min(5, target));
       const dist = Math.abs(p.firmeza - target);
       s += 10 - dist * 3;
-      if (dist <= 0.75) why.push({ lado: 'firmeza justa para dormir de lado', espalda: 'soporte parejo para dormir boca arriba', abajo: 'firme, como conviene boca abajo', mixto: 'firmeza media que acompaña cualquier postura' }[r.posicion]);
+      const sens = p.sensacion.toLowerCase();
+      /* 1. firmeza: siempre explicamos la relación con lo que pidió */
+      if (dist <= 0.75) why.push(`Firmeza ${sens} (${p.firmeza}/5): es justo lo que pediste para dormir ${POS}`);
+      else if (p.firmeza > target) why.push(`Firmeza ${sens} (${p.firmeza}/5): algo más firme de lo que pediste; buena opción si prefieres más soporte durmiendo ${POS}`);
+      else why.push(`Firmeza ${sens} (${p.firmeza}/5): algo más suave de lo que pediste; buena opción si prefieres hundirte un poco más`);
+      /* 2. núcleo y pareja */
+      if (r.quien === 'pareja') { if (p.aisla) { s += 2.5; why.push(`${p.nucleo}: no sientes cuando tu pareja se mueve`); } else { s -= 1.5; why.push(`${p.nucleo}: transmite algo de movimiento entre los dos`); } }
+      else why.push(p.nucleo + (p.dobleCara ? ', doble cara para voltearlo' : ''));
+      /* 3. peso y altura */
       const altura = Math.max(...alturasDe(p).map(a => a.altura));
-      if (r.peso === 'alto') { if (p.firmeza >= 4 || altura >= 32) { s += 2; why.push('altura y soporte para más de 100 kg'); } if (p.soporte < 100) s -= 2.5; }
-      if (r.peso === 'medio' && altura >= 30) s += 1;
-      if (r.quien === 'pareja') { if (p.aisla) { s += 2.5; why.push('no sientes cuando tu pareja se mueve'); } else s -= 1.5; }
-      if (r.quien === 'nino' || r.quien === 'invitados') { const d = precioDesde(p); if (d < 600000) { s += 2; why.push('precio justo para ' + (r.quien === 'nino' ? 'un cuarto infantil' : 'un cuarto de invitados')); } if (altura <= 27) s += 1; if (d > 900000) s -= 2; }
-      if (r.ciudad === 'otra') { if (p.linea === 'enrollado') { s += 2.5; why.push('llega enrollado en caja a tu ciudad'); } else s -= 1.5; }
-      if (r.ciudad === 'bq' && p.linea === 'extendido') { s += .7; why.push('te lo entregamos extendido, listo para usar'); }
+      if (r.peso === 'alto') { if (p.firmeza >= 4 || altura >= 32) { s += 2; why.push(`${altura} cm de altura y soporte hasta ${p.soporte} kg por persona: aguanta más de 100 kg sin deformarse`); } else { why.push(`Soporta hasta ${p.soporte} kg por persona; para más de 100 kg conviene un modelo más alto o más firme`); } if (p.soporte < 100) s -= 2.5; }
+      else if (r.peso === 'medio') { if (altura >= 30) { s += 1; why.push(`${altura} cm de altura, adecuado para 80–100 kg`); } else why.push(`${altura} cm de altura, suficiente para menos de 100 kg`); }
+      else why.push(`${altura} cm de altura, más que suficiente para menos de 80 kg`);
+      /* 4. precio según uso */
+      const d = precioDesde(p);
+      if (r.quien === 'nino' || r.quien === 'invitados') { if (d < 600000) { s += 2; why.push(`Desde ${fmt(d)}: precio justo para ${r.quien === 'nino' ? 'un cuarto infantil' : 'un cuarto de invitados'}`); } if (altura <= 27) s += 1; if (d > 900000) s -= 2; }
+      /* 5. entrega */
+      if (r.ciudad === 'otra') { if (p.linea === 'enrollado') { s += 2.5; why.push('Llega enrollado en caja por transportadora a tu ciudad'); } else { s -= 1.5; why.push('Es extendido: el envío fuera de Barranquilla cuesta más'); } }
+      if (r.ciudad === 'bq') { if (p.linea === 'extendido') { s += .7; why.push('Te lo entregamos extendido en Barranquilla, listo para usar el mismo día'); } else why.push('Enrollado: lo entregamos en Barranquilla y lo abres en casa'); }
       if (p.fresco) { s += .5; }
-      if (r.sensacion === 'nube' && /pillow/i.test(p.nucleo)) { s += 1; why.push('pillow top que te recibe suave'); }
+      if (r.sensacion === 'nube' && /pillow/i.test(p.nucleo)) { s += 1; why.push('Pillow top que te recibe suave, como pediste'); }
       if (r.sensacion === 'firme' && /espuma|foam|D80/i.test(p.nucleo)) { s += .8; }
       return { s, why };
+    },
+    resumen() {
+      const r = this.r;
+      return PREG.filter(q => r[q.id]).map(q => (q.o.find(o => o[0] === r[q.id]) || [])[1]).filter(Boolean);
     },
     results() {
       const r = this.r;
       const ranked = PRODUCTOS.filter(isColchon).map(p => Object.assign({ p }, this.score(p))).sort((a, b) => b.s - a.s).slice(0, 3);
       const talla = r.quien === 'pareja' ? '140x190' : r.quien === 'invitados' ? '140x190' : '100x190';
       const body = $('#test-body');
+      const resumen = this.resumen();
       body.innerHTML = `<div class="result-intro"><h3>${r.quien === 'pareja' ? 'Estas tres opciones les sirven a los dos.' : 'Tres colchones que coinciden contigo.'}</h3><p>Ordenados de mayor a menor coincidencia. Precio en talla ${TALLAS[talla].toLowerCase()}; puedes cambiarla en la ficha.</p></div>
+        <div class="answers">${resumen.map(a => `<span>${esc(a)}</span>`).join('')}<button id="t-edit">Cambiar respuestas</button></div>
         ${ranked.map((x, i) => {
           const p = x.p; const alt = alturasDe(p)[0]; const precio = alt.precios[talla] != null ? alt.precios[talla] : precioDesde(p);
           return `<div class="rcard">
             ${p.img && p.img[0] ? `<img src="${p.img[0]}" alt="">` : '<div class="ph"></div>'}
             <div><div class="rrank">${['Mejor coincidencia', 'Segunda opción', 'También te sirve'][i]}</div>
               <h4>${esc(p.nombre)} <span style="font-size:.85rem;color:var(--muted)">${alt.altura} cm · ${esc(p.marca)}</span></h4>
-              <p class="rwhy">${x.why.length ? x.why.slice(0, 3).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join('. ') + '.' : esc(p.sensacion) + '.'}</p>
-              <div class="ract"><span class="rprice">${fmt(precio)}</span><span class="rsize">${tallaLabel(talla)}</span><a class="btn btn-ghost btn-sm" href="#/p/${p.id}">Ver ficha</a><button class="btn btn-primary btn-sm" data-add="${p.id}" data-altura="${alt.altura}" data-talla="${talla}" data-precio="${precio}">Agregar al pedido</button></div>
+              <ul class="rwhy-list">${x.why.slice(0, 4).map(w => `<li>${esc(w)}</li>`).join('')}</ul>
+              <div class="ract"><span class="rprice">${wasHtml(precio)}${fmt(precio)}</span><span class="rsize">${tallaLabel(talla)}</span><a class="btn btn-ghost btn-sm" href="#/p/${p.id}">Ver ficha</a><button class="btn btn-primary btn-sm" data-add="${p.id}" data-altura="${alt.altura}" data-talla="${talla}" data-precio="${precio}">Agregar al pedido</button></div>
             </div></div>`; }).join('')}
-        <div class="qnav"><button class="btn btn-ghost" id="t-restart">Repetir el test</button><a class="btn btn-wa" href="${waLink(`Hola Parcor 👋 Hice el test y me recomendó: ${ranked.map(x => x.p.nombre).join(', ')}. Quiero asesoría para decidir.`)}" target="_blank" rel="noopener">Pedir asesoría</a></div>`;
-      $('#t-restart').addEventListener('click', () => { this.r = {}; this.step = 0; this.render(); });
+        <div class="qnav"><button class="btn btn-ghost" id="t-restart">Repetir el test</button><a class="btn btn-wa" href="${waLink(`Hola Parcor 👋 Hice el test (${resumen.join(', ').toLowerCase()}) y me recomendó: ${ranked.map(x => x.p.nombre).join(', ')}. Quiero asesoría para decidir.`)}" target="_blank" rel="noopener">Pedir asesoría</a></div>`;
+      $('#t-restart').addEventListener('click', () => { this.r = {}; this.step = 0; this.skip = []; this.render(); });
+      $('#t-edit').addEventListener('click', () => { this.step = 0; this.skip = []; this.render(); });
       $$('[data-add]', body).forEach(b => b.addEventListener('click', () => {
         const p = byId(b.dataset.add);
         Cart.add({ key: `${p.id}|${b.dataset.altura}|${b.dataset.talla}`, id: p.id, nombre: `${p.nombre} ${b.dataset.altura} cm`, variante: tallaLabel(b.dataset.talla), precio: Number(b.dataset.precio), qty: 1, img: p.img && p.img[0] || '', sku: '' });
