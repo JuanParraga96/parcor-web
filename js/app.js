@@ -373,6 +373,7 @@
      ===================================================================== */
   const PREG = [
     { id: 'quien', t: '¿Para quién es el colchón?', h: 'Nos ayuda con la talla y el presupuesto.', o: [['yo', 'Para mí'], ['pareja', 'Para mi pareja y yo'], ['nino', 'Para un niño o adolescente'], ['invitados', 'Cuarto de invitados o alquiler']] },
+    { id: 'talla', t: '¿Qué talla necesitas?', h: 'Mide la base o el somier antes de elegir. Si no estás seguro, te sugerimos una.', o: [['100x190', 'Sencillo — 100 × 190 cm'], ['120x190', 'Semidoble — 120 × 190 cm'], ['140x190', 'Doble — 140 × 190 cm'], ['160x190', 'Queen — 160 × 190 cm'], ['200x200', 'King — 200 × 200 cm'], ['nose', 'No estoy seguro']] },
     { id: 'posicion', t: '¿Cómo duermes la mayor parte de la noche?', h: 'La posición define cuánta firmeza necesitas.', o: [['lado', 'De lado'], ['espalda', 'Boca arriba'], ['abajo', 'Boca abajo'], ['mixto', 'Cambio mucho']] },
     { id: 'sensacion', t: '¿Qué sensación te gusta al acostarte?', h: 'Piensa en el mejor colchón donde hayas dormido.', o: [['nube', 'Que me reciba suave, como una nube'], ['equilibrio', 'Ni muy suave ni muy duro'], ['firme', 'Firme, que me sostenga'], ['nose', 'No sé, sorpréndeme']] },
     { id: 'peso', t: '¿Cuánto pesa la persona que más pesa?', h: 'A mayor peso, más altura y soporte necesitas.', o: [['bajo', 'Menos de 80 kg'], ['medio', 'Entre 80 y 100 kg'], ['alto', 'Más de 100 kg']] },
@@ -440,10 +441,11 @@
     results() {
       const r = this.r;
       const ranked = PRODUCTOS.filter(isColchon).map(p => Object.assign({ p }, this.score(p))).sort((a, b) => b.s - a.s).slice(0, 3);
-      const talla = r.quien === 'pareja' ? '140x190' : r.quien === 'invitados' ? '140x190' : '100x190';
+      const talla = (r.talla && r.talla !== 'nose') ? r.talla : (r.quien === 'pareja' || r.quien === 'invitados') ? '140x190' : '100x190';
+      const tallaSugerida = !(r.talla && r.talla !== 'nose');
       const body = $('#test-body');
       const resumen = this.resumen();
-      body.innerHTML = `<div class="result-intro"><h3>${r.quien === 'pareja' ? 'Estas tres opciones les sirven a los dos.' : 'Tres colchones que coinciden contigo.'}</h3><p>Ordenados de mayor a menor coincidencia. Precio en talla ${TALLAS[talla].toLowerCase()}; puedes cambiarla en la ficha.</p></div>
+      body.innerHTML = `<div class="result-intro"><h3>${r.quien === 'pareja' ? 'Estas tres opciones les sirven a los dos.' : 'Tres colchones que coinciden contigo.'}</h3><p>Ordenados de mayor a menor coincidencia. Precio en talla ${TALLAS[talla].toLowerCase()} (${talla.replace('x', ' × ')} cm)${tallaSugerida ? ', la que te sugerimos' : ''}; puedes cambiarla en la ficha.</p></div>
         <div class="answers">${resumen.map(a => `<span>${esc(a)}</span>`).join('')}<button id="t-edit">Cambiar respuestas</button></div>
         ${ranked.map((x, i) => {
           const p = x.p; const alt = alturasDe(p)[0]; const precio = alt.precios[talla] != null ? alt.precios[talla] : precioDesde(p);
