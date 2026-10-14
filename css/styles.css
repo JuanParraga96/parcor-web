@@ -98,38 +98,30 @@ p{margin:0 0 1em}
 .announce{background:var(--gold);color:var(--navy);text-align:center;font-size:.85rem;font-weight:700;padding:9px 16px;letter-spacing:.01em}
 
 /* ---------- hero ---------- */
-.hero{position:relative;background:var(--navy-deep);color:var(--cream);padding:96px 0 120px;overflow:hidden;isolation:isolate}
-.hero-bg{position:absolute;inset:0;z-index:-2}
-.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:72% 55%}
-.hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--navy-deep) 0%,rgba(9,26,54,.96) 30%,rgba(9,26,54,.72) 52%,rgba(9,26,54,.18) 78%,rgba(9,26,54,.05) 100%)}
-.hero-inner{max-width:680px}
-.hero-kicker{font-size:.9rem;font-weight:600;color:var(--gold);margin:0 0 22px;letter-spacing:.02em}
-.hero h1{font-size:clamp(2.6rem,6.4vw,5.4rem);font-weight:300;font-style:italic;line-height:1.02;color:var(--cream);max-width:13ch;font-variation-settings:"opsz" 144}
-.hero-lead{font-size:1.15rem;color:rgba(251,248,242,.78);max-width:46ch;margin:26px 0 34px;line-height:1.6}
-.hero-question{background:var(--cream);color:var(--ink);border-radius:var(--r-md);padding:22px 24px 18px;max-width:640px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
-.hq-label{font-family:var(--serif);font-size:1.35rem;margin:0 0 14px;color:var(--navy)}
+.hero{background:var(--sand);padding:56px 0 64px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{max-width:12ch}
+.hero-lead{font-size:1.12rem;color:var(--muted);max-width:52ch;margin:22px 0 30px}
+.hero-question{background:var(--white);border-radius:var(--r-md);padding:22px 24px 18px;border:1px solid var(--line)}
+.hq-label{font-family:var(--serif);font-size:1.3rem;margin:0 0 14px;color:var(--navy)}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
-.chip{background:var(--white);border:1.5px solid var(--line);border-radius:var(--r-pill);padding:11px 18px;font-weight:600;font-size:.95rem;transition:all .15s}
+.chip{background:var(--cream);border:1.5px solid var(--line);border-radius:var(--r-pill);padding:11px 18px;font-weight:600;font-size:.95rem;transition:all .15s}
 .chip:hover{border-color:var(--navy);background:var(--white)}
 .chip.selected,.chip[aria-pressed="true"]{background:var(--navy);color:var(--white);border-color:var(--navy)}
 .hq-note{margin:14px 0 0;font-size:.85rem;color:var(--muted)}
-.hero-links{display:flex;align-items:center;gap:18px;margin-top:30px;flex-wrap:wrap}
-.btn-light{color:var(--cream);border-color:rgba(251,248,242,.6)}
-.btn-light:hover{background:var(--cream);color:var(--navy);border-color:var(--cream)}
-.link-light{color:rgba(251,248,242,.75)}
-.link-light:hover{color:var(--cream)}
-.hero-caption{position:absolute;right:28px;bottom:28px;background:rgba(9,26,54,.85);color:var(--cream);padding:10px 16px 10px 14px;border-radius:var(--r-pill);font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:10px;text-decoration:none;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.15)}
-.hero-caption:hover{background:var(--navy)}
+.hero-links{display:flex;align-items:center;gap:18px;margin-top:26px;flex-wrap:wrap}
+.hero-photo{margin:0;position:relative}
+.hero-photo img{border-radius:var(--r-lg);width:100%;aspect-ratio:1/1;object-fit:cover}
+.hero-photo figcaption{position:absolute;left:18px;bottom:18px;background:var(--navy);color:var(--white);padding:10px 16px 10px 14px;border-radius:var(--r-pill);font-size:.88rem;font-weight:600;display:flex;align-items:center;gap:10px}
 .star{width:14px;height:14px;background:var(--gold);clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);display:inline-block;flex:none}
 
-/* ---------- confianza: cinta ---------- */
-.trust{background:var(--sand);color:var(--navy);border-top:1px solid var(--sand-2);border-bottom:1px solid var(--sand-2);overflow:hidden}
-.ticker{display:flex;width:max-content;animation:ticker 48s linear infinite}
-.ticker:hover{animation-play-state:paused}
-.ticker span{display:inline-flex;align-items:center;gap:18px;padding:16px 22px 16px 0;font-family:var(--serif);font-size:1.15rem;white-space:nowrap}
-.ticker .star{width:12px;height:12px}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.ticker{animation:none;flex-wrap:wrap;width:auto;justify-content:center}}
+/* ---------- confianza ---------- */
+.trust{background:var(--navy);color:var(--white)}
+.trust-row{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.trust-row>div{padding:20px 18px;border-left:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:3px}
+.trust-row>div:first-child{border-left:0;padding-left:0}
+.trust strong{font-size:.98rem}
+.trust span{font-size:.83rem;opacity:.7}
 
 /* ---------- secciones ---------- */
 .section{padding:72px 0}
@@ -385,6 +377,8 @@ p{margin:0 0 1em}
   .cat-grid{grid-template-columns:repeat(3,1fr)}
   .product-grid{grid-template-columns:repeat(2,1fr)}
   .footer-grid{grid-template-columns:1fr 1fr}
+  .trust-row{grid-template-columns:repeat(3,1fr)}
+  .trust-row>div{border-left:0;padding-left:0}
 }
 @media (max-width:900px){
   .nav{display:none;position:absolute;left:0;right:0;top:var(--header-h);background:var(--navy);flex-direction:column;gap:0;padding:8px 20px 16px;margin:0;border-top:1px solid rgba(255,255,255,.12)}
@@ -392,11 +386,11 @@ p{margin:0 0 1em}
   .nav a{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1)}
   .burger{display:flex}
   .header-wa-text{display:none}
-  .hero{padding:64px 0 84px}
-  .hero-bg::after{background:linear-gradient(180deg,rgba(9,26,54,.55) 0%,rgba(9,26,54,.9) 45%,var(--navy-deep) 100%)}
-  .hero-bg img{object-position:60% 30%}
+  .hero{padding:36px 0 44px}
+  .hero-grid{grid-template-columns:1fr;gap:28px}
+  .hero-photo{order:-1}
+  .hero-photo img{aspect-ratio:4/3}
   .hero h1{max-width:none}
-  .hero-caption{right:16px;bottom:16px}
   .test-teaser{grid-template-columns:1fr;gap:28px}
   .test-facts{grid-template-columns:repeat(3,1fr)}
   .test-facts li{flex-direction:column;gap:4px}
@@ -407,9 +401,9 @@ p{margin:0 0 1em}
 }
 @media (max-width:640px){
   :root{--header-h:76px}
-  .hero{padding:48px 0 72px}
-  .hero-question{padding:18px 16px 14px}
-  .ticker span{font-size:1rem;padding:13px 16px 13px 0}
+  .trust-row{grid-template-columns:1fr 1fr}
+  .trust-row>div{padding:14px 0}
+  .trust-row>div:last-child{grid-column:1/-1}
   .brand img{width:124px}
   .btn-wa span{display:none}
   .btn-wa.btn-sm{width:42px;padding:0;justify-content:center}

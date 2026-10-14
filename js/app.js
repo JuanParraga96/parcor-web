@@ -181,11 +181,9 @@
     $('#compare-table').innerHTML = tabla('extendido', 'Extendidos', 'Casa Di Luna · llegan listos para usar');
     $('#compare-table-2').innerHTML = tabla('enrollado', 'Enrollados', 'Azame · llegan comprimidos en caja a cualquier ciudad');
 
-    /* anuncio y cinta de confianza */
+    /* anuncio */
     const an = $('#announce'); if (CONFIG.ANUNCIO) { an.textContent = CONFIG.ANUNCIO; an.hidden = false; }
-    const items = ['Envío a toda Colombia con guía de rastreo', `Garantía de ${CONFIG.GARANTIA_COLCHONES} en todos los colchones`, 'Tela antiflama certificada', 'Hecho en Colombia por Azame y Casa Di Luna', 'Una persona real te responde por WhatsApp', DESC ? `${DESC}% de descuento de lanzamiento` : 'Precios con IVA incluido'];
-    const seq = items.map(t => `<span><i class="star" aria-hidden="true"></i>${esc(t)}</span>`).join('');
-    $('#ticker').innerHTML = seq + seq;
+
 
     /* FAQ pagos */
     $('#faq-pagos').textContent = `Aceptamos ${CONFIG.FORMAS_PAGO.slice(0, -1).join(', ').toLowerCase()} y ${CONFIG.FORMAS_PAGO.slice(-1)[0].toLowerCase()}. Te enviamos los datos por WhatsApp una vez confirmado el pedido.`;

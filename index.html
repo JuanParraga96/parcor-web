@@ -59,34 +59,44 @@
 
     <!-- HERO: la primera pregunta del test -->
     <section class="hero">
-      <div class="hero-bg" aria-hidden="true">
-        <img src="img/extendidos/cymbidium-1.jpg" alt="" width="1024" height="1024" fetchpriority="high">
-      </div>
-      <div class="wrap hero-inner">
-        <p class="hero-kicker">Desde Barranquilla para toda Colombia</p>
-        <h1>Dormir bien no debería ser una apuesta.</h1>
-        <p class="hero-lead">Once colchones y una sola pregunta para empezar. Dinos cómo duermes y te decimos cuál es el tuyo, con precio y envío a tu ciudad.</p>
-        <div class="hero-question" role="group" aria-labelledby="hq-label">
-          <p id="hq-label" class="hq-label">¿Cómo duermes la mayor parte de la noche?</p>
-          <div class="chips">
-            <button class="chip" data-test-start="lado">De lado</button>
-            <button class="chip" data-test-start="espalda">Boca arriba</button>
-            <button class="chip" data-test-start="abajo">Boca abajo</button>
-            <button class="chip" data-test-start="mixto">Cambio mucho</button>
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1>Dormir bien no debería ser una apuesta.</h1>
+          <p class="hero-lead">Once colchones, una sola pregunta para empezar. Dinos cómo duermes y te decimos cuál es el tuyo, con precio y envío a cualquier ciudad de Colombia.</p>
+          <div class="hero-question" role="group" aria-labelledby="hq-label">
+            <p id="hq-label" class="hq-label">¿Cómo duermes la mayor parte de la noche?</p>
+            <div class="chips">
+              <button class="chip" data-test-start="lado">De lado</button>
+              <button class="chip" data-test-start="espalda">Boca arriba</button>
+              <button class="chip" data-test-start="abajo">Boca abajo</button>
+              <button class="chip" data-test-start="mixto">Cambio mucho</button>
+            </div>
+            <p class="hq-note">Tarda un minuto. Sin registro.</p>
           </div>
-          <p class="hq-note">Tarda un minuto. Sin registro.</p>
+          <div class="hero-links">
+            <a href="#/catalogo/enrollados" class="btn btn-ghost">Ver todos los colchones</a>
+            <a href="#/catalogo/almohadas" class="link-quiet">o explorar la línea de hogar</a>
+          </div>
         </div>
-        <div class="hero-links">
-          <a href="#/catalogo/extendidos" class="btn btn-ghost btn-light">Ver todos los colchones</a>
-          <a href="#/catalogo/almohadas" class="link-quiet link-light">o explorar la línea de hogar</a>
-        </div>
+        <figure class="hero-photo">
+          <img src="img/enrollados/azahar-1.jpg" alt="Colchón Azahar en una habitación luminosa" width="1024" height="1024" fetchpriority="high">
+          <figcaption>
+            <span class="star" aria-hidden="true"></span>
+            Azahar · 35 cm · doble pillow top
+          </figcaption>
+        </figure>
       </div>
-      <a href="#/p/cymbidium" class="hero-caption"><span class="star" aria-hidden="true"></span>Cymbidium · 35 cm · doble pillow top</a>
     </section>
 
-    <!-- CONFIANZA: cinta en movimiento -->
+    <!-- CONFIANZA -->
     <section class="trust" aria-label="Por qué comprar en Parcor">
-      <div class="ticker" id="ticker"></div>
+      <div class="wrap trust-row">
+        <div><strong>Envío a toda Colombia</strong><span>Desde Barranquilla, con guía de rastreo</span></div>
+        <div><strong>Garantía de 10 años</strong><span>En todos los colchones</span></div>
+        <div><strong>Tela antiflama</strong><span>Certificada, en cada colchón</span></div>
+        <div><strong>Hecho en Colombia</strong><span>Azame y Casa Di Luna</span></div>
+        <div><strong>Asesoría real</strong><span>Una persona te responde por WhatsApp</span></div>
+      </div>
     </section>
 
     <!-- CATEGORÍAS -->
