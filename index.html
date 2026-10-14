@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Parcor Distribuciones — Colchones y descanso, enviados a toda Colombia</title>
+<meta name="description" content="Colchones enrollados Azame y extendidos Casa Di Luna, almohadas, protectores, sábanas, cobijas y toallas. Asesoría por WhatsApp y envío a toda Colombia desde Barranquilla.">
+<meta property="og:title" content="Parcor Distribuciones — Colchones y descanso">
+<meta property="og:description" content="Encuentra tu colchón ideal en un minuto. Envío a toda Colombia, garantía de 10 años.">
+<meta property="og:image" content="img/enrollados/azahar-1.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/logo/logo-azul.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<a class="skip" href="#view">Ir al contenido</a>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="header">
+  <div class="wrap header-row">
+    <a href="#/" class="brand" aria-label="Parcor Distribuciones, inicio">
+      <img src="img/logo/logo-blanco-hd.png" alt="Parcor Distribuciones" width="1174" height="520">
+    </a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#/catalogo/enrollados">Colchones</a>
+      <a href="#/catalogo/almohadas">Hogar</a>
+      <a href="#/" data-scroll="test">Test</a>
+      <a href="#/" data-scroll="enrollado">¿Enrollado o extendido?</a>
+      <a href="#/" data-scroll="faq">Preguntas</a>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-wa btn-sm" id="header-wa" href="#" target="_blank" rel="noopener">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4 5.3 5.3 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+        <span>WhatsApp</span>
+      </a>
+      <button class="cart-btn" id="cart-btn" aria-label="Abrir carrito">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.5L21.5 8H7"/><circle cx="10" cy="20" r="1.3"/><circle cx="17" cy="20" r="1.3"/></svg>
+        <span class="cart-count" id="cart-count" hidden>0</span>
+      </button>
+      <button class="burger" id="burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- Panel de revisión (solo con CONFIG.MODO_REVISION = true) -->
+<div class="revision" id="revision" hidden></div>
+
+<main id="view">
+
+  <!-- ============ INICIO ============ -->
+  <section class="view view-home" id="view-home">
+
+    <!-- HERO: la primera pregunta del test -->
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="hero-copy">
+          <h1>Dormir bien no debería ser una apuesta.</h1>
+          <p class="hero-lead">Once colchones, una sola pregunta para empezar. Dinos cómo duermes y te decimos cuál es el tuyo, con precio y envío a cualquier ciudad de Colombia.</p>
+          <div class="hero-question" role="group" aria-labelledby="hq-label">
+            <p id="hq-label" class="hq-label">¿Cómo duermes la mayor parte de la noche?</p>
+            <div class="chips">
+              <button class="chip" data-test-start="lado">De lado</button>
+              <button class="chip" data-test-start="espalda">Boca arriba</button>
+              <button class="chip" data-test-start="abajo">Boca abajo</button>
+              <button class="chip" data-test-start="mixto">Cambio mucho</button>
+            </div>
+            <p class="hq-note">Tarda un minuto. Sin registro.</p>
+          </div>
+          <div class="hero-links">
+            <a href="#/catalogo/enrollados" class="btn btn-ghost">Ver todos los colchones</a>
+            <a href="#/catalogo/almohadas" class="link-quiet">o explorar la línea de hogar</a>
+          </div>
+        </div>
+        <figure class="hero-photo">
+          <img src="img/enrollados/azahar-1.jpg" alt="Colchón Azahar en una habitación luminosa" width="1024" height="1024" fetchpriority="high">
+          <figcaption>
+            <span class="star" aria-hidden="true"></span>
+            Azahar · 35 cm · doble pillow top
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- CONFIANZA -->
+    <section class="trust" aria-label="Por qué comprar en Parcor">
+      <div class="wrap trust-row">
+        <div><strong>Envío a toda Colombia</strong><span>Desde Barranquilla, con guía de rastreo</span></div>
+        <div><strong>Garantía de 10 años</strong><span>En todos los colchones</span></div>
+        <div><strong>Tela antiflama</strong><span>Certificada, en cada colchón</span></div>
+        <div><strong>Hecho en Colombia</strong><span>Azame y Casa Di Luna</span></div>
+        <div><strong>Asesoría real</strong><span>Una persona te responde por WhatsApp</span></div>
+      </div>
+    </section>
+
+    <!-- CATEGORÍAS -->
+    <section class="section" id="categorias">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Todo lo que va sobre la cama, y debajo</h2>
+          <p>Del colchón a la toalla. Elige una categoría o búscalo directamente.</p>
+        </div>
+        <div class="cat-grid" id="cat-grid"></div>
+      </div>
+    </section>
+
+    <!-- TEST -->
+    <section class="section section-test" id="test">
+      <div class="wrap test-teaser">
+        <div class="test-teaser-copy">
+          <h2>El colchón ideal no es el más caro. Es el que coincide contigo.</h2>
+          <p>Cinco preguntas sobre quién duerme, cómo y dónde. Cruzamos las respuestas con la firmeza, el núcleo y la altura de cada colchón y te mostramos tres opciones ordenadas, con el porqué de cada una.</p>
+          <button class="btn btn-primary btn-lg" data-test-start="">Empezar el test</button>
+        </div>
+        <ul class="test-facts">
+          <li><b>11</b> colchones comparados</li>
+          <li><b>5</b> preguntas</li>
+          <li><b>3</b> recomendaciones con su porqué</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ENROLLADO VS EXTENDIDO -->
+    <section class="section" id="enrollado">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>¿Enrollado o extendido?</h2>
+          <p>Es la misma calidad de colchón. Lo que cambia es cómo llega a tu casa.</p>
+        </div>
+        <div class="compare-two">
+          <article class="two-card">
+            <img src="img/enrollados/luxury-2.jpg" alt="Colchón Azame comprimido y enrollado junto a uno extendido" loading="lazy">
+            <h3>Enrollado</h3>
+            <p>Se comprime al vacío y se enrolla en una caja. Sube por cualquier escalera, cabe en un ascensor y viaja por transportadora a cualquier ciudad. Se abre, respira unas horas y recupera toda su altura.</p>
+            <ul class="pros">
+              <li>Envío económico a todo el país</li>
+              <li>Entra por puertas y escaleras estrechas</li>
+              <li>Marca Azame: pocket, Bonell y espumado</li>
+            </ul>
+            <a href="#/catalogo/enrollados" class="btn btn-ghost">Ver enrollados</a>
+          </article>
+          <article class="two-card">
+            <img src="img/extendidos/cymbidium-1.jpg" alt="Colchón Casa Di Luna extendido sobre una base" loading="lazy">
+            <h3>Extendido</h3>
+            <p>Llega listo, sin tiempo de espera, en su forma final. Es la línea propia Casa Di Luna: resortados, cassata y espumados a precio de fábrica.</p>
+            <ul class="pros">
+              <li>Se usa el mismo día</li>
+              <li>Mejor precio por centímetro de altura</li>
+              <li>Entrega en Barranquilla y envío nacional</li>
+            </ul>
+            <a href="#/catalogo/extendidos" class="btn btn-ghost">Ver extendidos</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARADOR -->
+    <section class="section section-alt" id="comparador">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Los once, lado a lado</h2>
+          <p>Firmeza de 1 (suave) a 5 (firme). Precio desde la talla sencilla, IVA incluido.</p>
+        </div>
+        <div class="table-scroll">
+          <table class="compare" id="compare-table"></table>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIDEOS -->
+    <section class="section section-videos" id="videos">
+      <div class="wrap">
+        <div class="section-head section-head-row">
+          <h2>Visto de cerca</h2>
+          <p>Tres momentos cortos. Toca para reproducir.</p>
+        </div>
+        <div class="video-row">
+          <figure class="clip"><video src="video/clip-2.mp4" poster="video/clip-2.jpg" playsinline preload="none" loop muted></video><figcaption>La prueba de la copa: pocket que no transmite movimiento</figcaption></figure>
+          <figure class="clip"><video src="video/clip-1.mp4" poster="video/clip-1.jpg" playsinline preload="none" loop muted></video><figcaption>Así se siente un pillow top</figcaption></figure>
+          <figure class="clip"><video src="video/clip-3.mp4" poster="video/clip-3.jpg" playsinline preload="none" loop muted></video><figcaption>Elige, arma el pedido y lo cierras por WhatsApp</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="section" id="faq">
+      <div class="wrap faq-wrap">
+        <div class="section-head">
+          <h2>Preguntas frecuentes</h2>
+        </div>
+        <div class="faq" id="faq-list">
+          <details><summary>¿Cómo compro?</summary><p>Armas tu pedido en la página (colchón, talla, cantidad, lo que quieras agregar) y al finalizar se abre WhatsApp con el pedido listo. Una persona del equipo confirma disponibilidad, costo de envío y te envía los datos de pago.</p></details>
+          <details><summary>¿Envían a mi ciudad?</summary><p>Sí, a toda Colombia. Los colchones enrollados viajan por transportadora en caja; los extendidos y los somieres van en vehículo o carga. El valor del envío depende de la ciudad y te lo confirmamos antes de pagar.</p></details>
+          <details><summary>¿Cómo pago?</summary><p id="faq-pagos"></p></details>
+          <details><summary>¿Cuánto tarda un colchón enrollado en recuperar su forma?</summary><p>Al abrir la caja y retirar el plástico, el colchón se expande en minutos y alcanza su altura completa entre 24 y 48 horas. Puedes dormir en él la primera noche.</p></details>
+          <details><summary>¿Qué cubre la garantía?</summary><p>Todos los colchones tienen garantía de 10 años contra defectos de fabricación: hundimientos mayores a 2,5 cm sin uso indebido, resortes rotos o costuras abiertas. No cubre manchas ni daños por humedad, por eso recomendamos un protector.</p></details>
+          <details><summary>¿Qué talla necesito?</summary><p>Sencillo 100×190 (una persona), Semidoble 120×190 (una persona con espacio), Doble 140×190 (pareja), Queen 160×190 (pareja con espacio) y King 200×200 (pareja con niños o mascotas). Mide tu base o somier antes de elegir.</p></details>
+          <details><summary>¿Puedo ver los colchones en persona?</summary><p>Somos una tienda en línea. Por eso te damos todas las fichas técnicas, fotos reales, el test y asesoría directa por WhatsApp con alguien que conoce cada colchón.</p></details>
+        </div>
+      </div>
+    </section>
+
+  </section>
+
+  <!-- ============ CATÁLOGO ============ -->
+  <section class="view view-catalogo" id="view-catalogo" hidden>
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Ruta"><a href="#/">Inicio</a><span>/</span><span id="cat-crumb">Catálogo</span></nav>
+      <div class="cat-header">
+        <h1 id="cat-title">Catálogo</h1>
+        <p id="cat-sub"></p>
+      </div>
+      <div class="cat-tabs" id="cat-tabs" role="tablist"></div>
+      <div class="filters" id="filters"></div>
+      <div class="product-grid" id="product-grid"></div>
+    </div>
+  </section>
+
+  <!-- ============ PRODUCTO ============ -->
+  <section class="view view-producto" id="view-producto" hidden>
+    <div class="wrap" id="producto-wrap"></div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <img src="img/logo/logo-blanco-hd.png" alt="Parcor Distribuciones" width="1174" height="520" loading="lazy">
+      <p>Distribuidores de descanso en Barranquilla. Colchones Azame y Casa Di Luna, almohadas y lencería para el hogar y la hotelería.</p>
+      <div class="social" id="social"></div>
+    </div>
+    <div>
+      <h4>Catálogo</h4>
+      <ul id="footer-cats"></ul>
+    </div>
+    <div>
+      <h4>Ayuda</h4>
+      <ul>
+        <li><a href="#/" data-scroll="test">Test del colchón ideal</a></li>
+        <li><a href="#/" data-scroll="enrollado">Enrollado o extendido</a></li>
+        <li><a href="#/" data-scroll="comparador">Comparador</a></li>
+        <li><a href="#/" data-scroll="faq">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Hablemos</h4>
+      <ul class="contact">
+        <li><a id="footer-wa" href="#" target="_blank" rel="noopener">WhatsApp +57 318 441 6666</a></li>
+        <li><a id="footer-mail" href="#">parcorsas@gmail.com</a></li>
+        <li>Barranquilla, Colombia</li>
+        <li>Lunes a sábado, 8 a.m. a 6 p.m.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-base">
+    <span>© <span id="year"></span> Parcor Distribuciones S.A.S.</span>
+    <span>Precios en pesos colombianos, IVA incluido. Sujetos a cambio sin previo aviso.</span>
+  </div>
+</footer>
+
+<!-- WhatsApp flotante (móvil) -->
+<a class="wa-float" id="wa-float" href="#" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp">
+  <svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.9 11.9 0 0 0 4.6 4 5.3 5.3 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg>
+</a>
+
+<!-- ============ CARRITO ============ -->
+<div class="overlay" id="cart-overlay" hidden></div>
+<aside class="drawer" id="cart-drawer" aria-label="Tu pedido" aria-hidden="true">
+  <div class="drawer-head">
+    <h2>Tu pedido</h2>
+    <button class="icon-btn" id="cart-close" aria-label="Cerrar carrito">×</button>
+  </div>
+  <div class="drawer-body" id="cart-body"></div>
+  <div class="drawer-foot" id="cart-foot"></div>
+</aside>
+
+<!-- ============ TEST ============ -->
+<div class="overlay" id="test-overlay" hidden></div>
+<div class="modal" id="test-modal" role="dialog" aria-modal="true" aria-labelledby="test-title" aria-hidden="true">
+  <div class="modal-head">
+    <h2 id="test-title">Tu colchón ideal</h2>
+    <button class="icon-btn" id="test-close" aria-label="Cerrar test">×</button>
+  </div>
+  <div class="modal-body" id="test-body"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="js/catalogo.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
