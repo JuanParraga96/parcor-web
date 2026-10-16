@@ -218,8 +218,6 @@
     const labels = { foto: 'foto real', precio: 'precio', medidas: 'medidas/tallas' };
     const items = PRODUCTOS.filter(p => (p.pendientes && p.pendientes.length) || p.notaPendiente).map(p =>
       `<li><a href="#/p/${p.id}">${esc(p.nombre)}</a>: ${(p.pendientes || []).map(k => labels[k]).join(', ')}${p.notaPendiente ? ' — ' + esc(p.notaPendiente) : ''}</li>`);
-    const redes = Object.keys(CONFIG.REDES).filter(k => !CONFIG.REDES[k]);
-    if (redes.length) items.push(`<li>Links de redes sociales: ${redes.join(', ')}</li>`);
     box.hidden = false;
     box.innerHTML = `<div class="wrap"><strong>Modo revisión</strong><span>${items.length} pendientes. Las etiquetas ámbar no se verán cuando pongas <code>MODO_REVISION: false</code> en <code>js/catalogo.js</code>.</span>
       <details><summary>Ver lista de pendientes</summary><ul>${items.join('')}</ul></details></div>`;

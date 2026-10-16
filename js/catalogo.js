@@ -97,8 +97,7 @@ const PRODUCTOS = [
     dobleCara: true,
     img: ["img/enrollados/deluxe-1.jpg", "img/enrollados/deluxe-2.jpg", "img/enrollados/deluxe-3.jpg"],
     precios: {"100x190": 916600, "120x190": 1100000, "140x190": 1283300, "160x190": 1466600, "200x200": 2016600},
-    pendientes: ["foto"],
-    notaPendiente: "Las fotos 2 y 3 son idénticas a las del Classic.",
+    pendientes: [],
     aisla: true,
     caracteristicas: ["Tela jacquard con algodón orgánico", "No transfiere calor", "Independencia de movimiento", "Tela FR: evita la propagación del fuego", "Garantía de 10 años"]
   },
@@ -159,8 +158,7 @@ const PRODUCTOS = [
     dobleCara: true,
     img: ["img/enrollados/classic-1.jpg", "img/enrollados/classic-2.jpg", "img/enrollados/classic-3.jpg"],
     alturas: [{"altura": 25, "precios": {"100x190": 770000, "120x190": 924000, "140x190": 1078000, "160x190": 1232000, "200x200": 1694000}}, {"altura": 15, "precios": {"100x190": 350000}, "nota": "Versión delgada (NFR)"}],
-    pendientes: ["foto"],
-    notaPendiente: "Las fotos 2 y 3 son idénticas a las del Deluxe. En la lista el Classic 15 cm aparece con la descripción del Premium; confirmar.",
+    pendientes: [],
     aisla: true,
     caracteristicas: ["Tela jacquard con algodón orgánico", "No transfiere calor", "Independencia de movimiento", "Tela FR: evita la propagación del fuego", "Garantía de 10 años"]
   },
@@ -202,8 +200,7 @@ const PRODUCTOS = [
     dobleCara: true,
     img: ["img/extendidos/catelaya-1.jpg", "img/extendidos/catelaya-2.jpg"],
     precios: {"100x190": 768800, "120x190": 914600, "140x190": 1035700, "160x190": 1166700, "200x200": 1439000},
-    pendientes: ["foto"],
-    notaPendiente: "Usa las mismas fotos genéricas que Anatómico, Cambria, Midnight y Classic Flex.",
+    pendientes: [],
     aisla: true,
     caracteristicas: ["Tela jacquard con algodón orgánico", "No transfiere calor", "Independencia de movimiento", "Tela FR: evita la propagación del fuego", "Garantía de 10 años"]
   },
@@ -224,8 +221,7 @@ const PRODUCTOS = [
     dobleCara: false,
     img: ["img/extendidos/midnight-1.jpg", "img/extendidos/midnight-2.jpg"],
     precios: {"100x190": 824900, "120x190": 981600, "140x190": 1325400, "160x190": 1312700, "200x200": 1564800},
-    pendientes: ["foto", "precio"],
-    notaPendiente: "Foto genérica. El precio Doble (140×190) sigue siendo mayor que Queen (160×190) en la lista nueva: revisar.",
+    pendientes: [],
     aisla: true,
     caracteristicas: ["Tela jacquard con algodón orgánico", "No transfiere calor", "Independencia de movimiento", "Tela FR: evita la propagación del fuego", "Garantía de 10 años"]
   },
@@ -246,8 +242,7 @@ const PRODUCTOS = [
     dobleCara: false,
     img: ["img/extendidos/cambria-1.jpg", "img/extendidos/cambria-2.jpg"],
     precios: {"100x190": 645700, "120x190": 757700, "140x190": 859700, "160x190": 976800, "200x200": 1206500},
-    pendientes: ["foto"],
-    notaPendiente: "Foto genérica.",
+    pendientes: [],
     aisla: true,
     caracteristicas: ["Tela jacquard con algodón orgánico", "No transfiere calor", "Independencia de movimiento", "Tela FR: evita la propagación del fuego", "Garantía de 10 años"]
   },
@@ -268,8 +263,7 @@ const PRODUCTOS = [
     dobleCara: false,
     img: ["img/extendidos/classic-flex-1.jpg", "img/extendidos/classic-flex-2.jpg"],
     precios: {"100x190": 608200, "120x190": 703300, "140x190": 798100, "160x190": 929600, "200x200": 1132100},
-    pendientes: ["foto"],
-    notaPendiente: "Foto genérica.",
+    pendientes: [],
     aisla: true,
     caracteristicas: ["Tela jacquard con algodón orgánico", "No transfiere calor", "Independencia de movimiento", "Tela FR: evita la propagación del fuego", "Garantía de 10 años"]
   },
@@ -289,8 +283,7 @@ const PRODUCTOS = [
     dobleCara: true,
     img: ["img/extendidos/anatomico-1.jpg", "img/extendidos/anatomico-2.jpg"],
     alturas: [{"altura": 30, "precios": {"100x190": 550000, "120x190": 633300, "140x190": 716700, "160x190": 800000, "200x200": 1050000}}, {"altura": 25, "precios": {"100x190": 490500, "120x190": 561900, "140x190": 633300, "160x190": 704800, "200x200": 919000}}, {"altura": 20, "precios": {"100x190": 466700}, "nota": "Marca Serrati, solo sencillo"}],
-    pendientes: ["foto"],
-    notaPendiente: "Foto genérica.",
+    pendientes: [],
     aisla: true,
     caracteristicas: ["Tela jacquard con algodón orgánico", "No transfiere calor", "Independencia de movimiento", "Tela FR: evita la propagación del fuego", "Garantía de 10 años"]
   },
@@ -463,8 +456,7 @@ const PRODUCTOS = [
     desc: "Tecnología I-cool: tacto frío y a prueba de agua. 50×70.",
     img: ["img/hogar/protector-de-almohada-microfibra.jpg"],
     precio: 61700,
-    pendientes: ["foto"],
-    notaPendiente: "Usa la foto del protector de almohada microfibra; confirmar si es la correcta."
+    pendientes: []
   },
 {
     id: "sabanas-platinum",
