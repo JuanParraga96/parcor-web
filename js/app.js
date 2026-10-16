@@ -85,7 +85,7 @@
       $('#cart-overlay').hidden = true; document.body.style.overflow = '';
     },
     mensaje(nombre, ciudad) {
-      const lines = this.items.map((i, n) => `${n + 1}. ${i.nombre}${i.variante ? ' · ' + i.variante : ''} × ${i.qty} — ${fmt(i.precio * i.qty)}${i.sku ? ' (' + i.sku + ')' : ''}`);
+      const lines = this.items.map((i, n) => `${n + 1}. ${i.nombre}${i.variante ? ' · ' + i.variante : ''} × ${i.qty} — ${fmt(i.precio * i.qty)}${i.sku ? ' (' + i.sku + ')' : ''}${i.local ? ' [entrega Barranquilla]' : ''}`);
       return `Hola Parcor 👋 Quiero hacer este pedido:\n\n${lines.join('\n')}\n\nTotal de referencia: ${fmt(this.total())} (IVA incluido)\n\nNombre: ${nombre || '—'}\nCiudad: ${ciudad || '—'}\n\n¿Me confirman disponibilidad y costo de envío?`;
     },
     render() {
@@ -260,7 +260,7 @@
     }
     grid.innerHTML = prods.map(p => {
       const desde = precioDesde(p);
-      const meta = isColchon(p) ? `${esc(p.marca)} · ${alturasDe(p).map(a => a.altura).filter(a => a >= 25).join('/')} cm · ${esc(p.sensacion)}` : (p.variantes ? `${p.variantes.length} opciones` : (p.sku || ''));
+      const meta = isColchon(p) ? `${esc(p.marca)} · ${alturasDe(p).map(a => a.altura).filter(a => a >= 25).join('/')} cm · ${esc(p.sensacion)}` : (p.variantes ? `${p.variantes.length} ${p.variantes.length === 1 ? 'opción' : 'opciones'}${p.entrega ? ' · Barranquilla' : ''}` : (p.sku || ''));
       return `<a class="pcard" href="#/p/${p.id}">
         ${badges(p)}${desde ? offTag() : ''}
         <div class="pimg">${p.img && p.img[0] ? `<img src="${p.img[0]}" alt="${esc(p.nombre)}" loading="lazy">` : PLACEHOLDER()}</div>
@@ -344,6 +344,8 @@
           <p class="pdesc">${esc(p.desc)}</p>
           ${pend}
           ${specs}
+          ${col && p.caracteristicas ? `<ul class="feats">${p.caracteristicas.map(c => `<li>${esc(c)}</li>`).join('')}</ul>` : ''}
+          ${p.entrega ? `<p class="entrega-note">${esc(p.entrega)}. Consúltanos por WhatsApp para otras ciudades.</p>` : ''}
           ${opciones}
           ${cta}
           ${col && p.capas ? `<div class="capas"><h3>Qué hay adentro</h3><ol>${p.capas.map(c => `<li>${esc(c)}</li>`).join('')}</ol></div>` : ''}
@@ -363,7 +365,7 @@
     const qi = $('#qty', wrap); if (qi) qi.addEventListener('change', () => { sel.qty = Math.max(1, parseInt(qi.value) || 1); renderProducto(id); });
     const add = $('#add-cart', wrap);
     if (add) add.addEventListener('click', () => {
-      Cart.add({ key: `${p.id}|${col ? sel.altura + '|' + sel.talla : sel.variante}`, id: p.id, nombre: p.nombre + (col ? ` ${sel.altura} cm` : ''), variante: col ? tallaLabel(sel.talla) : variante, precio, qty: sel.qty, img: p.img && p.img[0] || '', sku });
+      Cart.add({ key: `${p.id}|${col ? sel.altura + '|' + sel.talla : sel.variante}`, id: p.id, nombre: p.nombre + (col ? ` ${sel.altura} cm` : ''), variante: col ? tallaLabel(sel.talla) : variante, precio, qty: sel.qty, img: p.img && p.img[0] || '', sku, local: !!p.entrega });
       toast('Agregado al pedido'); Cart.open();
     });
   }
@@ -375,7 +377,7 @@
     { id: 'quien', t: '¿Para quién es el colchón?', h: 'Nos ayuda con la talla y el presupuesto.', o: [['yo', 'Para mí'], ['pareja', 'Para mi pareja y yo'], ['nino', 'Para un niño o adolescente'], ['invitados', 'Cuarto de invitados o alquiler']] },
     { id: 'talla', t: '¿Qué talla necesitas?', h: 'Mide la base o el somier antes de elegir. Si no estás seguro, te sugerimos una.', o: [['100x190', 'Sencillo — 100 × 190 cm'], ['120x190', 'Semidoble — 120 × 190 cm'], ['140x190', 'Doble — 140 × 190 cm'], ['160x190', 'Queen — 160 × 190 cm'], ['200x200', 'King — 200 × 200 cm'], ['nose', 'No estoy seguro']] },
     { id: 'posicion', t: '¿Cómo duermes la mayor parte de la noche?', h: 'La posición define cuánta firmeza necesitas.', o: [['lado', 'De lado'], ['espalda', 'Boca arriba'], ['abajo', 'Boca abajo'], ['mixto', 'Cambio mucho']] },
-    { id: 'sensacion', t: '¿Qué sensación te gusta al acostarte?', h: 'Piensa en el mejor colchón donde hayas dormido.', o: [['nube', 'Que me reciba suave, como una nube'], ['equilibrio', 'Ni muy suave ni muy duro'], ['firme', 'Firme, que me sostenga'], ['nose', 'No sé, sorpréndeme']] },
+    { id: 'sensacion', t: '¿Qué sensación te gusta al acostarte?', h: 'Piensa en el mejor colchón donde hayas dormido.', o: [['nube', 'Que me reciba suave, como una nube'], ['equilibrio', 'Firme'], ['firme', 'Muy firme, que me sostenga'], ['nose', 'No sé, sorpréndeme']] },
     { id: 'peso', t: '¿Cuánto pesa la persona que más pesa?', h: 'A mayor peso, más altura y soporte necesitas.', o: [['bajo', 'Menos de 80 kg'], ['medio', 'Entre 80 y 100 kg'], ['alto', 'Más de 100 kg']] },
     { id: 'ciudad', t: '¿Dónde lo recibes?', h: 'Define si te conviene enrollado o extendido.', o: [['bq', 'Barranquilla o área metropolitana'], ['otra', 'Otra ciudad de Colombia']] }
   ];
